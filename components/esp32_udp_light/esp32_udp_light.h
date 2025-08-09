@@ -6,7 +6,7 @@
 namespace esphome {
 namespace esp32_udp_light {
 
-class EmptyComponent : public Component {
+class UDPLightStrip : public Component {
   public:
     void setup() override;
     void loop() override;

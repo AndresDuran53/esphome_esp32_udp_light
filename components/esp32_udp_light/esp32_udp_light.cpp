@@ -6,16 +6,16 @@ namespace esp32_udp_light {
 
 static const char *TAG = "esp32_udp_light.component";
 
-void EmptyComponent::setup() {
+void UDPLightStrip::setup() {
 
 }
 
-void EmptyComponent::loop() {
+void UDPLightStrip::loop() {
 
 }
 
-void EmptyComponent::dump_config(){
-    ESP_LOGCONFIG(TAG, "Empty component esp32_udp_light");
+void UDPLightStrip::dump_config(){
+    ESP_LOGCONFIG(TAG, "UDPLightStrip esp32_udp_light");
 }
 
 
