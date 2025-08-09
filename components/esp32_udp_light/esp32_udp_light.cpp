@@ -6,7 +6,9 @@ namespace esphome {
 
 namespace esp32_udp_light {
 
-UDPStripLightComponent::UDPStripLightComponent() : socket_fd_(-1) {}
+UDPStripLightComponent::UDPStripLightComponent() {
+    this->socket_fd_ = -1;
+}
 
 static const char *TAG = "esp32_udp_light.component";
 
