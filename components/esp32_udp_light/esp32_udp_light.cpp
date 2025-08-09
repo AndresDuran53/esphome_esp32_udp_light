@@ -12,9 +12,8 @@ void UDPStripLightComponent::setup() {
 }
 
 void UDPStripLightComponent::loop() {
-    ESP_LOGI(TAG, "UDPStripLightComponent loop() called");
     // If the socket is not open, try to open it
-    if (this->socket_fd_ < 0) {
+    if (this->socket_fd_ > 0) {
         this->open_udp_socket_();
     }
     if (this->socket_fd_ < 0){
