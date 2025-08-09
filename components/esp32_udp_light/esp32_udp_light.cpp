@@ -12,7 +12,14 @@ void UDPStripLightComponent::setup() {
 }
 
 void UDPStripLightComponent::loop() {
-
+    // If the socket is not open, try to open it
+    if (this->socket_fd_ < 0) {
+        this->open_udp_socket_();
+    }
+    if (this->socket_fd_ < 0){
+        ESP_LOGE(TAG, "Socket not open, cannot receive data");
+        return;
+    }
 }
 
 void UDPStripLightComponent::dump_config(){
