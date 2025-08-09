@@ -18,24 +18,13 @@ void UDPStripLightComponent::setup() {
 }
 
 void UDPStripLightComponent::loop() {
-    // Retarda la inicialización del socket hasta que pase el boot_loop_counter_
+    
     if (!wifi::global_wifi_component || !wifi::global_wifi_component->is_connected()) {
         ESP_LOGI(TAG, "Esperando WiFi...");
         return;
     }
 
-    if (this->boot_loop_counter_ < BOOT_LOOP_DELAY) {
-        this->boot_loop_counter_++;
-        ESP_LOGI(TAG, "Esperando boot_loop_counter_: %d", this->boot_loop_counter_);
-        return;
-    }
-    if (this->boot_loop_counter_ == BOOT_LOOP_DELAY) {
-        ESP_LOGI(TAG, "Boot loop counter reached %d, initializing socket", BOOT_LOOP_DELAY);
-        this->boot_loop_counter_ = 0; // Prevent re-initialization
-    }
-
     ESP_LOGI(TAG, "Loop Log: socket_fd_: %d", this->socket_fd_);
-    ESP_LOGI(TAG, "Loop Log: boot_loop_counter_: %d", this->boot_loop_counter_);
     if (this->socket_fd_ < 0) {
         this->open_udp_socket_();
     }
