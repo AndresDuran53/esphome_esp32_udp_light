@@ -24,6 +24,7 @@ void UDPStripLightComponent::loop() {
         return;
     }
     ESP_LOGI(TAG, "Loop Log: socket_fd_: %d", this->socket_fd_);
+    ESP_LOGI(TAG, "Loop Log: boot_loop_counter_: %d", this->boot_loop_counter_);
     if (this->socket_fd_ < 0) {
         this->open_udp_socket_();
     }
