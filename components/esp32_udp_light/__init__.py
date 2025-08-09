@@ -7,8 +7,8 @@ from esphome.const import CONF_ID, CONF_PORT, CONF_LIGHT_ID
 DEPENDENCIES = ['wifi']
 AUTO_LOAD = ['light']
 
-empty_component_ns = cg.esphome_ns.namespace("empty_component")
-EmptyComponent = empty_component_ns.class_("EmptyComponent", cg.Component)
+esp32_udp_light_ns = cg.esphome_ns.namespace("esp32_udp_light")
+EmptyComponent = esp32_udp_light_ns.class_("EmptyComponent", cg.Component)
 
 CONFIG_SCHEMA = cv.Schema(
     {
