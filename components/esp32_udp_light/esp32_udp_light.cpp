@@ -26,11 +26,11 @@ UDPStripLightComponent::~UDPStripLightComponent() {
   }
 }
 
-void open_udp_socket_(){
+void UDPStripLightComponent::open_udp_socket_(){
 
 }
 
-bool receive_udp_data_(uint8_t* buffer, size_t buffer_size, int* received_bytes){
+bool UDPStripLightComponent::receive_udp_data_(uint8_t* buffer, size_t buffer_size, int* received_bytes){
     struct sockaddr_in sender_address;
     socklen_t address_length = sizeof(sender_address);
     *received_bytes = recvfrom(this->socket_fd_, buffer, buffer_size, 0,
@@ -45,11 +45,11 @@ bool receive_udp_data_(uint8_t* buffer, size_t buffer_size, int* received_bytes)
     return true;
 }
 
-void update_leds_from_udp_(light::AddressableLight* addressable_light, const uint8_t* buffer, int received_bytes){
+void UDPStripLightComponent::update_leds_from_udp_(light::AddressableLight* addressable_light, const uint8_t* buffer, int received_bytes){
 
 }
 
-light::AddressableLight* get_addressable_light_() {
+light::AddressableLight* UDPStripLightComponent::get_addressable_light_() {
     if (!this->light_strip_) return nullptr;
     auto light_output = this->light_strip_->get_output();
     if (light_output == nullptr) return nullptr;
