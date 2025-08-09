@@ -8,11 +8,11 @@ DEPENDENCIES = ['wifi']
 AUTO_LOAD = ['light']
 
 esp32_udp_light_ns = cg.esphome_ns.namespace("esp32_udp_light")
-UDPLightStrip = esp32_udp_light_ns.class_("UDPLightStrip", cg.Component)
+UDPStripLightComponent = esp32_udp_light_ns.class_("UDPStripLightComponent", cg.Component)
 
 CONFIG_SCHEMA = cv.Schema(
     {
-        cv.GenerateID(): cv.declare_id(UDPLightStrip),
+        cv.GenerateID(): cv.declare_id(UDPStripLightComponent),
         cv.Required(CONF_PORT): cv.port,
         cv.Required(CONF_LIGHT_ID): cv.use_id(AddressableLightState),
     }
