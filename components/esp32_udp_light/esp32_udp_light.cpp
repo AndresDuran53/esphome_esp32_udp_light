@@ -12,7 +12,7 @@ void UDPStripLightComponent::setup() {
 }
 
 void UDPStripLightComponent::loop() {
-
+    ESP_LOGI(TAG, "UDPStripLightComponent loop() called");
 }
 
 void UDPStripLightComponent::dump_config(){
