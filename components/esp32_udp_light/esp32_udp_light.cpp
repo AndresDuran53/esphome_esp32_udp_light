@@ -26,6 +26,7 @@ void UDPStripLightComponent::loop() {
 void UDPStripLightComponent::dump_config(){
     ESP_LOGCONFIG(TAG, "UDPStripLightComponent: ");
     ESP_LOGCONFIG(TAG, "  Port: %d", this->port_);
+    ESP_LOGCONFIG(TAG, "  socket_fd_: %d", this->socket_fd_);
     ESP_LOGI(TAG, "UDPStripLightComponent LogInfo");
 }
 
