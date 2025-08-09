@@ -1,6 +1,7 @@
 #include "esphome/core/log.h"
 #include "esp32_udp_light.h"
 #include <lwip/sockets.h>
+#include "esphome/components/wifi/wifi_component.h"
 
 namespace esphome {
 
@@ -18,6 +19,11 @@ void UDPStripLightComponent::setup() {
 
 void UDPStripLightComponent::loop() {
     // Retarda la inicialización del socket hasta que pase el boot_loop_counter_
+    if (!wifi::global_wifi_component || !wifi::global_wifi_component->is_connected()) {
+        ESP_LOGI(TAG, "Esperando WiFi...");
+        return;
+    }
+
     if (this->boot_loop_counter_ < BOOT_LOOP_DELAY) {
         this->boot_loop_counter_++;
         ESP_LOGI(TAG, "Esperando boot_loop_counter_: %d", this->boot_loop_counter_);
