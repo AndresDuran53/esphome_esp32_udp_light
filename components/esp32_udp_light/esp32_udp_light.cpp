@@ -26,7 +26,6 @@ void UDPStripLightComponent::loop() {
 
     if (this->boot_loop_counter_ < BOOT_LOOP_DELAY) {
         this->boot_loop_counter_++;
-        ESP_LOGI(TAG, "Esperando boot_loop_counter_: %d", this->boot_loop_counter_);
         return;
     }
     if (this->boot_loop_counter_ == BOOT_LOOP_DELAY) {
