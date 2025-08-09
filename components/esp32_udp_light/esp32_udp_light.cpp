@@ -17,7 +17,12 @@ void UDPStripLightComponent::setup() {
 }
 
 void UDPStripLightComponent::loop() {
-    // If the socket is not open, try to open it
+    // Retarda la inicialización del socket hasta que pase el boot_loop_counter_
+    if (this->boot_loop_counter_ < BOOT_LOOP_DELAY) {
+        this->boot_loop_counter_++;
+        ESP_LOGI(TAG, "Esperando boot_loop_counter_: %d", this->boot_loop_counter_);
+        return;
+    }
     ESP_LOGI(TAG, "Loop Log: socket_fd_: %d", this->socket_fd_);
     if (this->socket_fd_ < 0) {
         this->open_udp_socket_();
