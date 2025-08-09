@@ -16,7 +16,8 @@ void UDPStripLightComponent::loop() {
 }
 
 void UDPStripLightComponent::dump_config(){
-    ESP_LOGCONFIG(TAG, "UDPStripLightComponent esp32_udp_light");
+    ESP_LOGCONFIG(TAG, "UDPStripLightComponent: ");
+    ESP_LOGI(TAG, "UDPStripLightComponent LogInfo");
 }
 
 UDPStripLightComponent::~UDPStripLightComponent() {
