@@ -10,7 +10,7 @@ namespace esp32_udp_light {
 
 // Constructor: initializes members
 UDPStripLightComponent::UDPStripLightComponent()
-    : is_effect_active(false), boot_loop_counter_(0), socket_fd_(-1), port_(0), light_strip_(nullptr) {}
+    : is_effect_active(false), socket_fd_(-1), port_(0), light_strip_(nullptr) {}
 
 static const char *TAG = "esp32_udp_light.component";
 
@@ -31,20 +31,10 @@ void UDPStripLightComponent::loop() {
         return;
     }
 
-    /*if (this->boot_loop_counter_ < BOOT_LOOP_DELAY) {
-        this->boot_loop_counter_++;
-        if (this->boot_loop_counter_ == BOOT_LOOP_DELAY) {
-            ESP_LOGI(TAG, "Boot loop counter reached %d, initializing socket", BOOT_LOOP_DELAY);
-            this->boot_loop_counter_++;
-        }
-        return;
-    }*/
-
     if (this->socket_fd_ < 0) {
         this->open_udp_socket_();
     }
     if (this->socket_fd_ < 0) {
-        ESP_LOGE(TAG, "Socket not open, cannot receive data");
         return;
     }
 
@@ -60,9 +50,11 @@ void UDPStripLightComponent::loop() {
     // Check if the strip is ON
     if (!this->light_strip_->current_values.is_on()) return;
 
-    // Check if the current effect is UDP
+
+    // Check if the current effect is one of the allowed UDP effect names
     std::string current_effect = this->light_strip_->get_effect_name();
-    if (current_effect != "WLED UDP Effect") {
+    if (current_effect != "WLED" &&
+        current_effect != "UDP Effect") {
         this->is_effect_active = false;
         return;
     }

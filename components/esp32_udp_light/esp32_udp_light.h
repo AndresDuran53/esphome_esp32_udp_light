@@ -11,10 +11,6 @@ class UDPStripLightComponent : public Component {
     UDPStripLightComponent();
     // Indicates if the UDP effect is active
     bool is_effect_active = false;
-
-    // Boot counter to delay socket init
-    int boot_loop_counter_ = 0;
-    static constexpr int BOOT_LOOP_DELAY = 200; // Ajusta según necesidad
     
     void setup() override;
     void loop() override;
