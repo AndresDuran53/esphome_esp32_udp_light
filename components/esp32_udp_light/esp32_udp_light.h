@@ -20,6 +20,7 @@ class UDPStripLightComponent : public Component {
     void set_strip(light::AddressableLightState* light_strip) { this->light_strip_ = light_strip; }
     void set_port(uint16_t port) { this->port_ = port; }
     void set_effect_active(bool active) { this->is_effect_active = active; }
+    void set_socket_fd(int socket_fd) { this->socket_fd_ = socket_fd; }
 
   protected:
     // Internal members

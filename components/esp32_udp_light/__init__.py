@@ -25,3 +25,4 @@ async def to_code(config):
     light_state = await cg.get_variable(config[CONF_LIGHT_ID])
     cg.add(var.set_strip(light_state))
     cg.add(var.set_port(config[CONF_PORT]))
+    cg.add(var.set_socket_fd(-1))
