@@ -14,7 +14,7 @@ class UDPStripLightComponent : public Component {
 
   // Boot counter to delay socket init
   int boot_loop_counter_ = 0;
-  static constexpr int BOOT_LOOP_DELAY = 500; // Ajusta según necesidad
+  static constexpr int BOOT_LOOP_DELAY = 5000; // Ajusta según necesidad
     
     void setup() override;
     void loop() override;
