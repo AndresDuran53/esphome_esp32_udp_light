@@ -17,15 +17,17 @@ void UDPStripLightComponent::loop() {
 
 void UDPStripLightComponent::dump_config(){
     ESP_LOGCONFIG(TAG, "UDPStripLightComponent: ");
+    ESP_LOGCONFIG(TAG, "  Port: %d", this->port_);
     ESP_LOGI(TAG, "UDPStripLightComponent LogInfo");
 }
 
+/*
 UDPStripLightComponent::~UDPStripLightComponent() {
   if (this->socket_fd_ >= 0) {
     close(this->socket_fd_);
     this->socket_fd_ = -1;
   }
-}
+}*/
 
 void UDPStripLightComponent::open_udp_socket_(){
 
