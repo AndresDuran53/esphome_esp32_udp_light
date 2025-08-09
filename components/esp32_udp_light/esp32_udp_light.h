@@ -8,6 +8,7 @@ namespace esp32_udp_light {
 
 class UDPStripLightComponent : public Component {
   public:
+    UDPStripLightComponent();
     // Indicates if the UDP effect is active
     bool is_effect_active = false;
     
