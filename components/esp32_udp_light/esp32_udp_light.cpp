@@ -26,10 +26,11 @@ void UDPStripLightComponent::loop() {
 
     if (this->boot_loop_counter_ < BOOT_LOOP_DELAY) {
         this->boot_loop_counter_++;
+        if (this->boot_loop_counter_ == BOOT_LOOP_DELAY) {
+            ESP_LOGI(TAG, "Boot loop counter reached %d, initializing socket", BOOT_LOOP_DELAY);
+            this->boot_loop_counter_++;
+        }
         return;
-    }
-    if (this->boot_loop_counter_ == BOOT_LOOP_DELAY) {
-        ESP_LOGI(TAG, "Boot loop counter reached %d, initializing socket", BOOT_LOOP_DELAY);
     }
 
     if (this->socket_fd_ < 0) {
