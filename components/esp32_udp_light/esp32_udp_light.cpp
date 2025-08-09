@@ -32,8 +32,6 @@ void UDPStripLightComponent::loop() {
         ESP_LOGI(TAG, "Boot loop counter reached %d, initializing socket", BOOT_LOOP_DELAY);
     }
 
-    ESP_LOGI(TAG, "Loop Log: socket_fd_: %d", this->socket_fd_);
-    ESP_LOGI(TAG, "Loop Log: boot_loop_counter_: %d", this->boot_loop_counter_);
     if (this->socket_fd_ < 0) {
         this->open_udp_socket_();
     }
@@ -41,6 +39,28 @@ void UDPStripLightComponent::loop() {
         ESP_LOGE(TAG, "Socket not open, cannot receive data");
         return;
     }
+
+    // Get the AddressableLight object
+    auto addressable_light = this->get_addressable_light_();
+    if (addressable_light == nullptr) return;
+
+    // Receive and process UDP data
+    int received_bytes = 0;
+    uint8_t udp_buffer[2048];
+    if (!this->receive_udp_data_(udp_buffer, sizeof(udp_buffer), &received_bytes)) return;
+
+    // Check if the strip is ON
+    if (!this->light_strip_->current_values.is_on()) return;
+
+    // Check if the current effect is UDP
+    std::string current_effect = this->light_strip_->get_effect_name();
+    if (current_effect != "WLED UDP Effect") {
+        this->is_effect_active = false;
+        return;
+    }
+
+    // Update LEDs with received data
+    this->update_leds_from_udp_(addressable_light, udp_buffer, received_bytes);
 }
 
 void UDPStripLightComponent::dump_config(){
@@ -102,15 +122,15 @@ void UDPStripLightComponent::update_leds_from_udp_(light::AddressableLight* addr
     int leds_received = received_bytes / 3;
     int leds_to_update = std::min(led_count, leds_received);
 
-    // Update LEDs with received RGB data
+    // Log RGB values
     for (int led_index = 0; led_index < leds_to_update; led_index++) {
         int buffer_position = led_index * 3;
+        uint8_t r = buffer[buffer_position];
+        uint8_t g = buffer[buffer_position + 1];
+        uint8_t b = buffer[buffer_position + 2];
+        ESP_LOGI(TAG, "LED %d: R=%d G=%d B=%d", led_index, r, g, b);
         auto pixel = addressable_light->get(led_index);
-        pixel.set(Color(
-        buffer[buffer_position],
-        buffer[buffer_position + 1],
-        buffer[buffer_position + 2]
-        ));
+        pixel.set(Color(r, g, b));
     }
     // Schedule LED strip update
     addressable_light->schedule_show();
